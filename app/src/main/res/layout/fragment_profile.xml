@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimaryDark"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:id="@+id/editProfileImage"
+        android:layout_width="111dp"
+        android:layout_height="118dp"
+        app:srcCompat="@drawable/ic_perm_identity_black_24dp" />
+    <EditText
+        android:layout_width="307dp"
+        android:layout_height="79dp"
+        android:layout_toRightOf="@+id/editProfileImage"
+        android:hint="username"
+        android:layout_marginTop="30dp"
+        android:id="@+id/editUsername"/>
+
+    <EditText
+        android:id="@+id/editEmail"
+        android:layout_width="307dp"
+        android:layout_height="79dp"
+        android:layout_below="@+id/editProfileImage"
+        android:ems="10"
+        android:hint="E=mail"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/editPhone"
+        android:layout_width="307dp"
+        android:layout_height="79dp"
+        android:layout_below="@+id/editEmail"
+        android:ems="10"
+        android:hint="Phone"
+        android:inputType="phone" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Password"
+        android:textSize="30dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/ChangePassword"
+        />
+
+    <EditText
+        android:id="@+id/OldPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_below="@+id/ChangePassword"
+        android:hint="Old Password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/NewPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="New Password"
+        android:layout_below="@+id/OldPassword"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/RepeatPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/NewPassword"
+        android:ems="10"
+        android:hint="Repeat Password"
+        android:inputType="textPassword" />
+</RelativeLayout>

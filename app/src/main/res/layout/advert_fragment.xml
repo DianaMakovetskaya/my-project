@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorPrimaryDark"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imageAdvert1"
+                android:layout_centerInParent="true"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_insert_photo_black_24dp" />
+
+
+
+
+
+
+
+    <EditText
+        android:id="@+id/textView7"
+        android:layout_centerInParent="true"
+        android:layout_width="245dp"
+        android:layout_height="81dp"
+        android:hint="Write information"
+        android:textSize="20dp"
+        android:layout_below="@+id/imageAdvert1" />
+
+    <Button
+        android:id="@+id/publish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Publish"
+        android:background="@drawable/fields"
+        android:layout_below="@+id/textView7"
+        android:layout_centerInParent="true"/>
+
+
+</RelativeLayout>

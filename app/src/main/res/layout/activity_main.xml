@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign in"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            android:ems="10"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress"
+            tools:textColorHint="#C1BCBC"
+            tools:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            android:hint="Password"
+            tools:textColorHint="#C1BCBC"
+            tools:textSize="20sp"
+            android:inputType="textPassword" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Remember me"
+            tools:textSize="20sp"
+            android:textColor="#C1BCBC"
+            android:layout_marginTop="10sp"/>
+
+        <Button
+            android:id="@+id/buttonSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="71dp"
+            android:layout_marginLeft="60sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginRight="60sp"
+            android:background="@drawable/fields"
+            android:padding="18sp"
+            android:text="Sign in"
+            android:textSize="18sp" />
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <androidx.constraintlayout.widget.Guideline-->
+<!--                android:id="@+id/guideline"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal" />-->
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="268dp"
+                android:layout_height="34dp"
+                android:text="Want to create an account?"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:layout_marginTop="20sp"
+                android:layout_marginLeft="75sp"
+
+                 />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ForgotPassword"
+            android:text="Forgot the password"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:layout_marginTop="20sp"
+            android:layout_marginLeft="110sp"
+            />
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
