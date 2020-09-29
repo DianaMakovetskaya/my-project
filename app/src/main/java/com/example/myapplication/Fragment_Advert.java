@@ -1,14 +1,12 @@
 package com.example.myapplication;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,7 +26,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 public class Fragment_Advert extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -38,11 +37,13 @@ public class Fragment_Advert extends Fragment {
     private DatabaseReference mDatabaseRef;
     private StorageTask mUploadTask;
 
+
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     ImageView advert;
     EditText info;
     Button publish;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,6 +73,7 @@ public class Fragment_Advert extends Fragment {
                     Toast.makeText(getActivity(), "Upload in progress", Toast.LENGTH_SHORT).show();
                 } else {
                     uploadFile();
+
                 }
             }
         });
@@ -90,44 +92,96 @@ public class Fragment_Advert extends Fragment {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
-            Picasso.with(advert.getContext()).load(mImageUri).into(advert);
-
+            //Picasso.with(advert.getContext()).load(mImageUri).into(advert);
+            advert.setImageURI(mImageUri);
 
         }
     }
 
-    private String getFileExtension(Uri uri) {
-        ContentResolver cR = getActivity().getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(uri));
-    }
+
     private void uploadFile() {
+        final String imageName=info.getText().toString();
         if (mImageUri != null) {
-            final StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
-                    + "." + getFileExtension(mImageUri));
-            mUploadTask = fileReference.putFile(mImageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            final String key = mDatabaseRef.push().getKey();
+            //fAuth.getCurrentUser().getUid();
+            mStorageRef.child(key + ".jpg").putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    mStorageRef.child(key + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        public void onSuccess(Uri uri) {
+                            HashMap hashMap = new HashMap();
+                            hashMap.put("Info", imageName);
+                            hashMap.put("ImageUrl", uri.toString());
+                            mDatabaseRef.child(key).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getActivity(), "Upload successful", Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
 
-                            Toast.makeText(getActivity(), "Upload successful", Toast.LENGTH_LONG).show();
-                            Upload upload = new Upload(info.getText().toString().trim(),
-                                    taskSnapshot.getStorage().getDownloadUrl().toString());
-
-                            String uploadId = mDatabaseRef.push().getKey();
-                            mDatabaseRef.child(uploadId).setValue(upload);
-
+                                }
+                            });
                         }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
+
+
                     });
-
-        } else {
-            Toast.makeText(getActivity(), "No file selected", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
         }
+        uploadFileCurrentUser();
+    }
+
+    private void uploadFileCurrentUser() {
+        final StorageReference NewStoregeRef;
+        final DatabaseReference NewDatabaseRef;
+        NewStoregeRef=FirebaseStorage.getInstance().getReference("UsersUploads");
+        NewDatabaseRef=FirebaseDatabase.getInstance().getReference("UsersUploads");
+        final String imageName=info.getText().toString();
+        if (mImageUri != null) {
+            final String key2 = NewDatabaseRef.child(fAuth.getCurrentUser().getUid()).push().getKey();
+            //fAuth.getCurrentUser().getUid();
+            NewStoregeRef.child(fAuth.getCurrentUser().getUid()).child(key2 + ".jpg").putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    NewStoregeRef.child(fAuth.getCurrentUser().getUid()).child(key2 + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            HashMap hashMap = new HashMap();
+                            hashMap.put("Info", imageName);
+                            hashMap.put("ImageUrl", uri.toString());
+                            NewDatabaseRef.child(fAuth.getCurrentUser().getUid()).child(key2).setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getActivity(), "Upload successful", Toast.LENGTH_LONG).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+
+                                }
+                            });
+                        }
+
+
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
     }
 }

@@ -9,9 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,6 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import javax.annotation.Nullable;
@@ -74,10 +79,6 @@ Main3Activity extends AppCompatActivity {
         uploadAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent=new Intent();
-//                intent.setType("image/*");
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                startActivityForResult(intent,1);
                 openFileChooser();
             }
         });
@@ -95,25 +96,30 @@ Main3Activity extends AppCompatActivity {
                 && data != null && data.getData() != null) {
             imageUri = data.getData();
             Picasso.with(profileImage.getContext()).load(imageUri).into(profileImage);
+            uploadPicture();
         }
     }
 
-//    private void uploadPicture() {
-//        final String randomKey= UUID.randomUUID().toString();
-//        StorageReference riversRef = storageReference.child("images/"+randomKey);
-//        riversRef.putFile(imageUri)
-//                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                        Toast.makeText(Main3Activity.this,"image upload",Toast.LENGTH_SHORT).show();
-//
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception exception) {
-//                        Toast.makeText(getApplicationContext(),"Failed upload image",Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
+    private void uploadPicture() {
+        if(imageUri!=null){
+           StorageReference fileReference = storageReference.child("users/"+fAuth.getCurrentUser().getUid()+"/profile.jpg");
+           fileReference.putFile(imageUri)
+            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    Toast.makeText(Main3Activity.this, "Upload successful", Toast.LENGTH_LONG).show();
+
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Main3Activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
+
+    }
 }

@@ -26,7 +26,8 @@
         android:padding="18sp"
         android:text="Upload avatar"
         android:textSize="18sp"
-        android:layout_below="@+id/profileImage"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/cardViewActivityMain3"
         tools:layout_editor_absoluteX="60dp" />
 
     <TextView
@@ -38,7 +39,8 @@
         android:layout_marginTop="50sp"
         android:paddingLeft="20dp"
         android:textSize="23sp"
-        android:layout_below="@+id/uploadAvatar"/>
+        android:layout_below="@+id/uploadAvatar"
+        />
 
     <TextView
         android:id="@+id/profileFulname"
@@ -49,16 +51,20 @@
         android:text="Your name"
         android:textColor="#FFFFFF"
         android:textSize="36sp" />
-
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardViewActivityMain3"
+    android:layout_width="128dp"
+    android:layout_height="128dp"
+    app:cardCornerRadius="64dp"
+    android:layout_centerInParent="true"
+    android:layout_below="@+id/textView2"
+    android:layout_marginTop="30dp">
     <ImageView
         android:id="@+id/profileImage"
-        android:layout_centerInParent="true"
-        android:layout_width="126dp"
-        android:layout_height="124dp"
-        android:layout_below="@+id/textView2"
-        tools:srcCompat="@tools:sample/avatars"
-        />
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+</androidx.cardview.widget.CardView>
 
 
 </RelativeLayout>

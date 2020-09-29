@@ -9,13 +9,31 @@
 
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:text="Drawer Header"
-        android:textSize="30dp"
+        android:id="@+id/HeaderUserName"
+        android:layout_width="142dp"
+        android:layout_height="28dp"
+        android:text="user's name"
+        android:textSize="25dp"
+        android:layout_marginLeft="10sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="50dp"
+        android:layout_marginLeft="10sp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/HeaderUserName">
+        <ImageView
+            android:id="@+id/HeaderImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

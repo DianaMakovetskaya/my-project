@@ -20,12 +20,15 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 TextView createAccount,forgotTextLink;
 Button btnSignIn;
 EditText etEmail,etPassword;
 FirebaseAuth fAuth;
+ FirebaseUser mUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,15 @@ FirebaseAuth fAuth;
         etPassword=findViewById(R.id.password);
         forgotTextLink=findViewById(R.id.ForgotPassword);
         fAuth= FirebaseAuth.getInstance();
+        mUser=fAuth.getCurrentUser();
+
+
+
+//        if (mUser!=null)
+//        {
+//            Intent intent= new Intent(MainActivity.this,Main4Activity.class);
+//            startActivity(intent);
+//        }
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override

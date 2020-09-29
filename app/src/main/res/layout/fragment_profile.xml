@@ -7,16 +7,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardView"
+    android:layout_width="128dp"
+    android:layout_height="128dp"
+    app:cardCornerRadius="64dp">
     <ImageView
         android:id="@+id/editProfileImage"
-        android:layout_width="111dp"
-        android:layout_height="118dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         app:srcCompat="@drawable/ic_perm_identity_black_24dp" />
+</androidx.cardview.widget.CardView>
+
+
     <EditText
         android:layout_width="307dp"
         android:layout_height="79dp"
-        android:layout_toRightOf="@+id/editProfileImage"
+        android:layout_toRightOf="@+id/cardView"
         android:hint="username"
         android:layout_marginTop="30dp"
         android:id="@+id/editUsername"/>
@@ -25,7 +33,7 @@
         android:id="@+id/editEmail"
         android:layout_width="307dp"
         android:layout_height="79dp"
-        android:layout_below="@+id/editProfileImage"
+        android:layout_below="@+id/cardView"
         android:ems="10"
         android:hint="E=mail"
         android:inputType="textEmailAddress" />
@@ -73,4 +81,16 @@
         android:ems="10"
         android:hint="Repeat Password"
         android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="158dp"
+        android:layout_height="62dp"
+        android:layout_below="@+id/RepeatPassword"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/fields"
+        android:text="save" />
+
+
 </RelativeLayout>
